@@ -31,6 +31,7 @@ product_amount = dataset_handler.count_product(db_settings)
 
 uid = int(sys.argv[1])
 
+
 class ContentBasedRecommender(object):
     
     #計算相似矩陣
@@ -45,6 +46,9 @@ class ContentBasedRecommender(object):
         
         # product_vectors來執行 DatasetHandler的 load_product()函式
         self.product_vectors = self.dataset_handler.load_product(db_settings)
+       
+
+
     
     def train(self, train_set):
         pass
@@ -58,10 +62,10 @@ class ContentBasedRecommender(object):
             self.top.remove(i)
         
         #跑 _cosineKNN函式
+     
         return self.top
         
     def create_user_profile(self, usr_ratings):
-        
         #用以複製user ratings
         copy = []
         
@@ -150,13 +154,12 @@ class ContentBasedRecommender(object):
                 self.product_similarity[i][j] = similarity
         
     def recommend(self, uid, usr_ratings, counter):
-        
         rank = dict()
         top_n_product = dict()
         user_rate_product = usr_ratings.get(uid, {})
-        
         #根據相似矩陣跟使用者產品評分進行推薦
         for i, rate in user_rate_product.items():
+           
         
             top_n_product = dict(sorted(self.product_similarity[i].items(),
             key = lambda x:x[1], reverse = True)[0:counter])
@@ -165,11 +168,12 @@ class ContentBasedRecommender(object):
                 if j in user_rate_product:
                     continue
                 rank.setdefault(j, 0)
+         
                 rank[j] += rate * similarity
         
         #依據分數高低進行排列
         result = dict(sorted(rank.items(), key = lambda x:x[1], reverse = True)[0:counter])
-
+        
         return result
     
     def combined_recommend(self, result):

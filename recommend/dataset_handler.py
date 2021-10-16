@@ -44,11 +44,11 @@ class DatasetHandler(object):
             
             #建立user ratings，並將favorite產品評分為5
             for usr_fav in result_sql_favorite:
-                
-                if int(usr_fav[0]) not in usr_ratings:
-                    usr_ratings[int(usr_fav[0])] = {}
+
+                if int(usr_fav[1]) not in usr_ratings:
+                    usr_ratings[int(usr_fav[1])] = {}
                     
-                usr_ratings[int(usr_fav[0])][int(usr_fav[1])] = 5         
+                usr_ratings[int(usr_fav[1])][int(usr_fav[0])] = 5    
             
             conn.commit()
             
@@ -76,7 +76,6 @@ class DatasetHandler(object):
                         usr_ratings[int(usr_rec[0])][int(usr_rec[1])] = 3        
             
             conn.commit()
-        
         return(usr_ratings)
             
     def load_product(self, db_settings):
@@ -169,7 +168,6 @@ class DatasetHandler(object):
                 self.product_index_to_product_id.append(int(product[0]))
                 
                 product_vectors.append(np.array([1 if sorts in sort_list else 0 for sorts in sort]))
-                
             return np.array(product_vectors)
         
     def load_favor(self, db_settings, uid):
