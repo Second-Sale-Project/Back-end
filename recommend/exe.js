@@ -1,6 +1,8 @@
 var exec = require("child_process").exec;
 let a;
-exec('python test.py 4 ',function(error,stdout,stderr){
+const uId = 60;
+const command = "python test.py "+ uId ;
+exec(command,function(error,stdout,stderr){
     if(stdout.length >1){
     a = stdout;
     
