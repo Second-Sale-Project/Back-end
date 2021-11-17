@@ -1,3 +1,4 @@
+from itertools import count
 import numpy as np
 from sklearn.neighbors import NearestNeighbors
 import os
@@ -184,6 +185,8 @@ class ContentBasedRecommender(object):
 
         if len(result) == 0:
             return self.top
+        if len(self.top) == 0:
+            return result
         else:
             for ids in self.top:
                 Count += 1
@@ -192,7 +195,8 @@ class ContentBasedRecommender(object):
 
                     Counter += 1
                     if ids == ids2:
-                        final[int(ids)] = Counter + Count
+                        tempnum = Count*4
+                        final[int(ids)] = Counter + tempnum
                         break
                     else:
                         final[int(ids)] = Count + len(result) + 1

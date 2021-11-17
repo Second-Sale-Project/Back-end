@@ -14,3 +14,5 @@ exec(command,function(error,stdout,stderr){
     console.info('stderr :', stderr);
     }
     });
+
+  
